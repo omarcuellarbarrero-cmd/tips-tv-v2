@@ -1,0 +1,15 @@
+# Base de datos SQLite
+data/
+*.db
+
+# Archivos de configuración local
+.env
+config.php
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log

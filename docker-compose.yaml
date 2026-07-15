@@ -1,0 +1,15 @@
+services:
+  tips-tv-app:
+    build: .
+    container_name: tips-tv-v2
+    expose:
+      - "80"
+    volumes:
+      - sqlite-data:/usr/share/nginx/html/data
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    restart: unless-stopped
+
+volumes:
+  sqlite-data:
+    driver: local
