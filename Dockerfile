@@ -22,17 +22,10 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY . /usr/share/nginx/html
 
 # CREAR CARPETA DATA CON PERMISOS CORRECTOS (IMPORTANTE)
+
 # Al final del Dockerfile
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod -R 775 /var/www/html/data
-
-RUN mkdir -p /usr/share/nginx/html/data \
-    && chown -R www-data:www-data /usr/share/nginx/html/data \
-    && chmod -R 775 /usr/share/nginx/html/data
-
-WORKDIR /usr/share/nginx/html
-
-EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
