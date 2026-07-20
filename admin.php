@@ -69,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     elseif ($action === 'update_user') {
         if (empty($_POST['password'])) {
-            // Si no hay contraseña, no la actualizamos
             $stmt = $db->prepare("UPDATE users SET username=?, is_admin=? WHERE id=?");
             $stmt->execute([strtolower($_POST['username']), isset($_POST['is_admin']) ? 1 : 0, $_POST['id']]);
         } else {
@@ -85,12 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "🗑️ Usuario eliminado.";
     }
 
-    // Redirigir para limpiar la URL y evitar reenvío de formulario
     header('Location: admin.php?msg=' . urlencode($message));
     exit;
 }
 
-// Mostrar mensaje si viene de redirección
 if (isset($_GET['msg'])) {
     $message = $_GET['msg'];
 }
@@ -146,7 +143,7 @@ $users = $db->query("SELECT * FROM users ORDER BY id ASC")->fetchAll(PDO::FETCH_
         <?php endif; ?>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('tips')"> Gestionar Tips</button>
+            <button class="tab-btn active" onclick="showTab('tips')">📺 Gestionar Tips</button>
             <button class="tab-btn" onclick="showTab('users')">👥 Gestionar Usuarios</button>
         </div>
 
@@ -160,9 +157,7 @@ $users = $db->query("SELECT * FROM users ORDER BY id ASC")->fetchAll(PDO::FETCH_
 
             <form method="POST" style="background: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
                 <input type="hidden" name="action" value="<?= $edit_tip ? 'update_tip' : 'add_tip' ?>">
-                <?php if ($edit_tip): ?>
-                    <input type="hidden" name="id" value="<?= $edit_tip['id'] ?>">
-                <?php endif; ?>
+                <?php if ($edit_tip): ?><input type="hidden" name="id" value="<?= $edit_tip['id'] ?>"><?php endif; ?>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div class="form-group"><label>Marca</label><input type="text" name="marca" value="<?= $edit_tip ? htmlspecialchars($edit_tip['marca']) : '' ?>" required></div>
@@ -193,7 +188,7 @@ $users = $db->query("SELECT * FROM users ORDER BY id ASC")->fetchAll(PDO::FETCH_
                         <td><?= htmlspecialchars($tip['sintoma']) ?></td>
                         <td><small><?= htmlspecialchars(substr($tip['solucion'], 0, 80)) ?>...</small></td>
                         <td>
-                            <a href="?edit_tip=<?= $tip['id'] ?>" class="btn btn-warning" style="padding: 5px 10px;">️</a>
+                            <a href="?edit_tip=<?= $tip['id'] ?>" class="btn btn-warning" style="padding: 5px 10px;">✏️</a>
                             <form method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este tip?');">
                                 <input type="hidden" name="action" value="delete_tip">
                                 <input type="hidden" name="id" value="<?= $tip['id'] ?>">
@@ -216,9 +211,7 @@ $users = $db->query("SELECT * FROM users ORDER BY id ASC")->fetchAll(PDO::FETCH_
 
             <form method="POST" style="background: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 20px; max-width: 400px;">
                 <input type="hidden" name="action" value="<?= $edit_user ? 'update_user' : 'add_user' ?>">
-                <?php if ($edit_user): ?>
-                    <input type="hidden" name="id" value="<?= $edit_user['id'] ?>">
-                <?php endif; ?>
+                <?php if ($edit_user): ?><input type="hidden" name="id" value="<?= $edit_user['id'] ?>"><?php endif; ?>
                 
                 <div class="form-group"><label>Usuario</label><input type="text" name="username" value="<?= $edit_user ? htmlspecialchars($edit_user['username']) : '' ?>" required></div>
                 <div class="form-group"><label>Contraseña <?= $edit_user ? '(Dejar vacío para no cambiar)' : '' ?></label><input type="password" name="password" <?= $edit_user ? '' : 'required' ?>></div>

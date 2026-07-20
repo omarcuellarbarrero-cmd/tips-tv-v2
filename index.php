@@ -38,42 +38,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente Técnico - Ingreso</title>
-    <link rel="icon" type="image/png" href="Logo-nuevo-metodo-oc.webp">
-    <link rel="stylesheet" href="styles.css">
+    <title>Login - Tips TV</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f4f9; }
+        .login-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #2980b9; }
+        .error { color: red; text-align: center; margin-bottom: 10px; }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="logo-container">
-    <img src="Logo-nuevo-metodo-oc.webp" alt="Logo Asistente Técnico" class="logo-login">
-</div>
-            <h1>Asistente Técnico</h1>
-            <p class="subtitle">Diagnóstico de Televisores con IA</p>
-
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">👤 Usuario:</label>
-                    <input type="text" id="username" name="username" placeholder="Escribe tu usuario" required autocomplete="username">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">🔒 Contraseña:</label>
-                    <input type="password" id="password" name="password" placeholder="Escribe tu contraseña" required autocomplete="current-password">
-                </div>
-
-                <button type="submit" class="btn-primary">Ingresar</button>
-
-                <div id="errorMessage" class="error-message"></div>
-            </form>
-
-                   <footer class="app-footer">
-            <p>Asistente Técnico v2.0 — Powered by Groq AI</p>
-        </footer>
-
-        </div>
+    <div class="login-box">
+        <h2 style="text-align:center;">🔐 Acceso Admin</h2>
+        <?php if ($error): ?>
+            <p class="error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Usuario" required autocomplete="off">
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
     </div>
-
-    <script src="login.js?v=8"></script>
 </body>
 </html>
